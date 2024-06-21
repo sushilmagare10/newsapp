@@ -6,29 +6,37 @@ import axios from 'axios';
 
 function App() {
   const [category, setCategory] = useState("general");
+  const [country, setCountry] = useState("us"); // Default country is US
+  const [language, setLanguage] = useState("en"); // Default language is English
   const [newsArray, setNewsArray] = useState([]);
-  const [newsResults, setNewsresults] = useState();
+  const [newsResults, setNewsResults] = useState();
   const [loadMore, setLoadMore] = useState(10);
   
-  const newsApi = async () =>{
-    try{
-        const news = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${import.meta.env.VITE_NEWS_API}&category=${category}&pageSize=${loadMore}`);
+  const newsApi = async () => {
+    try {
+      const news = await axios.get(`https://newsapi.org/v2/top-headlines`, {
+        params: {
+          country: country,
+          category: category,
+          pageSize: loadMore,
+          language: language,
+          apiKey: import.meta.env.VITE_NEWS_API
+        }
+      });
       setNewsArray(news.data.articles);
-      setNewsresults(news.data.totalResults)
-        console.log("API", import.meta.env.VITE_NEWS_API)
-
-    } catch(error){
+      setNewsResults(news.data.totalResults);
+    } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     newsApi();
-  }, [category,newsResults,loadMore]);
+  }, [category, country, language, loadMore]);
 
   return (
-    <div className=' flex flex-col justify-center items-center'>
-      <Navbar setCategory={setCategory} />
+    <div className='flex flex-col justify-center items-center'>
+      <Navbar setCategory={setCategory} setCountry={setCountry} setLanguage={setLanguage} />
       
       <NewsContent
         newsArray={newsArray}
