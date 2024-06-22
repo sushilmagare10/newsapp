@@ -1,50 +1,63 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/Navbar';
-import NewsContent from './components/NewsContent';
-import axios from 'axios';
+import Navbar from './components/Navbar'
+import NewsContent from './components/NewsContent'
+import axios from 'axios'
+import SingleNewsPage from './pages/SingleNewsPage'
 
 function App() {
-  const [category, setCategory] = useState("general");
-  const [country, setCountry] = useState("us"); // Default country is US
-  const [language, setLanguage] = useState("en"); // Default language is English
-  const [newsArray, setNewsArray] = useState([]);
-  const [newsResults, setNewsResults] = useState();
-  const [loadMore, setLoadMore] = useState(10);
-  
+  const [category, setCategory] = useState("general")
+  const [country, setCountry] = useState("in"); 
+  const [newsArray, setNewsArray] = useState([])
+  const [newsResults, setNewsResults] = useState()
+  const [loadMore, setLoadMore] = useState(10)
+  const [loading, setLoading] = useState(false)
+
   const newsApi = async () => {
+    setLoading(true)
     try {
       const news = await axios.get(`https://newsapi.org/v2/top-headlines`, {
         params: {
           country: country,
           category: category,
           pageSize: loadMore,
-          language: language,
           apiKey: import.meta.env.VITE_NEWS_API
         }
-      });
-      setNewsArray(news.data.articles);
-      setNewsResults(news.data.totalResults);
+      })
+      setNewsArray(news.data.articles)
+      setNewsResults(news.data.totalResults)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+    setLoading(false)
+  }
 
   useEffect(() => {
-    newsApi();
-  }, [category, country, language, loadMore]);
+    newsApi()
+  }, [category, loadMore, country])
 
   return (
-    <div className='flex flex-col justify-center items-center'>
-      <Navbar setCategory={setCategory} setCountry={setCountry} setLanguage={setLanguage} />
-      
-      <NewsContent
-        newsArray={newsArray}
-        newsResults={newsResults}
-        loadMore={loadMore}
-        setLoadMore={setLoadMore}
-      />
-    </div>
+    <Router>
+      <div className='flex flex-col justify-center items-center'>
+        <Navbar setCategory={setCategory} category={category} setCountry={setCountry} />
+        {loading ? (
+          <div className='flex justify-center items-center h-screen'>
+            <div className='spinner'></div>
+          </div>
+        ) : (
+          <Routes>
+            <Route path="/" element={<NewsContent
+              newsArray={newsArray}
+              newsResults={newsResults}
+              loadMore={loadMore}
+              setLoadMore={setLoadMore}
+            />} />
+            <Route path="/news/:id" element={<SingleNewsPage />} />
+          </Routes>
+        )}
+      </div>
+    </Router>
   )
 }
 
