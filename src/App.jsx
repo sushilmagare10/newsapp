@@ -18,17 +18,16 @@ function App() {
   const newsApi = async () => {
     setLoading(true)
     try {
-      const news = await axios.get(`https://newsapi.org/v2/top-headlines`, {
+      const news = await axios.get(`https://newsapi.org/v2/top-headlines/`, {
         params: {
           country: country,
           category: category,
           pageSize: loadMore,
           apiKey: import.meta.env.VITE_NEWS_API
         },
-        headers:{
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json", //this line solved cors
-  },
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
       })
       setNewsArray(news.data.articles)
       setNewsResults(news.data.totalResults)

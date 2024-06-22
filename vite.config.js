@@ -10,7 +10,7 @@ export default defineConfig({
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/api/, ''),
       headers: {
-        'X-Api-Key': 'YOUR_NEWS_API_KEY', 
+        'X-Api-Key': import.meta.env.VITE_NEWS_API, 
       },
     },
   },
