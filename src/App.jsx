@@ -24,7 +24,11 @@ function App() {
           category: category,
           pageSize: loadMore,
           apiKey: import.meta.env.VITE_NEWS_API
-        }
+        },
+        headers:{
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json", //this line solved cors
+  },
       })
       setNewsArray(news.data.articles)
       setNewsResults(news.data.totalResults)
