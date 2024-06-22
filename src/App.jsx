@@ -9,7 +9,7 @@ import Header from './components/Header'
 
 function App() {
   const [category, setCategory] = useState("general")
-  const [country, setCountry] = useState("in"); 
+  const [country, setCountry] = useState(""); 
   const [newsArray, setNewsArray] = useState([])
   const [newsResults, setNewsResults] = useState()
   const [loadMore, setLoadMore] = useState(10)

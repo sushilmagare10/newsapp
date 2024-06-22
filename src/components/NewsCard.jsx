@@ -29,7 +29,7 @@ const NewsCard = ({ newsItem, index }) => {
   return (
     <div
       onClick={handleClick}
-      className='relative flex flex-col bg-neutral-50 justify-center items-center p-3 border border-black/20 rounded shadow-lg h-96 w-72 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105'
+      className='relative flex flex-col bg-neutral-50 justify-center items-center p-3 border border-black/20 rounded shadow-lg h-[400px] w-72 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105'
     >
       {isFavorite ? (
         <div className='absolute top-2 right-2'>
@@ -42,7 +42,7 @@ const NewsCard = ({ newsItem, index }) => {
       )}
       <div className='flex flex-col justify-center items-center'>
         {newsItem.urlToImage ? (
-          <div className='h-60 w-full mb-4'>
+          <div className='h-64 w-full mb-4'>
             <img
               src={newsItem.urlToImage}
               alt={newsItem.title || 'News Image'}
@@ -59,7 +59,7 @@ const NewsCard = ({ newsItem, index }) => {
         </h2>
         <p className='text-sm text-left'>
           {newsItem.description
-            ? newsItem.description.slice(0, 60) + '...'
+            ? newsItem.description.slice(0, 50) + '...'
             : 'No description available'}
         </p>
       </div>

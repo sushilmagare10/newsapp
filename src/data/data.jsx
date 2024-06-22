@@ -10,6 +10,7 @@ export const categories = [
 
 
 export const countries = [
+  { code: '', name: 'All' },
   { code: 'in', name: 'India' },
   { code: 'us', name: 'United States' },
   { code: 'gb', name: 'United Kingdom' },

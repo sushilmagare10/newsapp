@@ -3,7 +3,7 @@ import { categories, countries } from '../data/data'
 
 const Header = ({ setCategory, setCountry, category }) => {
     return (
-      <div className='flex w-4/6 mt-6 justify-between items-center'>
+      <div className='flex flex-col md:flex-row w-11/12 md:w-4/6 mt-6 justify-between items-center'>
     <div className='flex justify-center items-center mb-4 md:mb-0 text-lg capitalize'>
         <span className="mr-6 w-full cursor-pointer">
           <select 
