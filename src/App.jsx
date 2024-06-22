@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
 import Navbar from './components/Navbar'
 import NewsContent from './components/NewsContent'
 import axios from 'axios'
 import SingleNewsPage from './pages/SingleNewsPage'
+import FavoriteNewsPage from './pages/FavoriteNewsPage'
+import Header from './components/Header'
 
 function App() {
   const [category, setCategory] = useState("general")
@@ -40,7 +41,8 @@ function App() {
   return (
     <Router>
       <div className='flex flex-col justify-center items-center'>
-        <Navbar setCategory={setCategory} category={category} setCountry={setCountry} />
+        <Navbar  />
+        <Header setCategory={setCategory} category={category} setCountry={setCountry}/>
         {loading ? (
           <div className='flex justify-center items-center h-screen'>
             <div className='spinner'></div>
@@ -53,7 +55,9 @@ function App() {
               loadMore={loadMore}
               setLoadMore={setLoadMore}
             />} />
-            <Route path="/news/:id" element={<SingleNewsPage />} />
+              <Route path="/news/:id" element={<SingleNewsPage />} />
+                          <Route path="/favorites" element={<FavoriteNewsPage />} />
+
           </Routes>
         )}
       </div>
