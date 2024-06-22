@@ -3,8 +3,8 @@ import NewsCard from './NewsCard'
 
 const NewsContent = ({ newsArray, newsResults, loadMore, setLoadMore }) => {
   return (
-    <div className='p-4'>
-      <div className='grid grid-cols-3 gap-4'>
+    <div className='p-4 mt-10'>
+      <div className='grid gird-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7'>
         {newsArray.map((newsItem, index) => (
           <NewsCard key={index} newsItem={newsItem} index={index} />
         ))}
